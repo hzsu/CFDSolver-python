@@ -42,6 +42,7 @@ def rungeKutta(gridIn,far,status,param):
     # status = flux.fluxGo(gridIn,far,status)
 
     fiderr = open('err.txt','w')
+    fidCoef = open('Coef.txt','w')
 
     for i in range(param.step):
         
@@ -80,6 +81,11 @@ def rungeKutta(gridIn,far,status,param):
             outTec.outTecplot(gridIn,far,status,fileName)
 
         fiderr.close()
+
+        Coef = outTec.ClCdCal(gridIn,far,status)
+        fidCoef = open('Coef.txt','a')
+        fidCoef.write(str(i) + '\t' + '%.6f'%Coef[0] + '\t' + '%.6f'%Coef[1] + '\n')
+        fidCoef.close()
 
     return status
 

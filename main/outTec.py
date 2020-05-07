@@ -55,3 +55,31 @@ Zone N={gridIn.num[0]},E={gridIn.num[2]},F=FEPOINT, ET=TRIANGLE
     
     pass
 
+
+def ClCdCal(gridIn,far,status):
+    
+    cx = 0
+    cy = 0
+    p = 0.5 * far.Rho * (far.U ** 2 + far.V ** 2)
+    Coef = [0,0]
+        
+    for i in range(gridIn.num[1]):
+        
+        cellK = int(gridIn.edge[i,2])
+        cellP = int(gridIn.edge[i,3])
+
+        if cellP == -1:
+            
+            edgeP0 = int(gridIn.edge[i,0])
+            edgeP1 = int(gridIn.edge[i,1])           
+            deltaX = gridIn.point[edgeP1,0] - gridIn.point[edgeP0,0]
+            deltaY = gridIn.point[edgeP1,1] - gridIn.point[edgeP0,1]
+
+            cx += status.Phy[cellK,2] / p * deltaY
+            cy -= status.Phy[cellK,2] / p * deltaX
+        
+    Coef[0] = cy * math.cos(far.Alpha / 57.3) - cx * math.sin(far.Alpha / 57.3)
+    Coef[1] = cx * math.cos(far.Alpha / 57.3) + cy * math.sin(far.Alpha / 57.3)
+
+    return Coef
+
