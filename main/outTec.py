@@ -13,7 +13,7 @@ def outTecplot(gridIn,far,status,fileName):
 
     for i in range(gridIn.num[2]):
         for j in range(3):
-            point = int(gridIn.status[i,j])
+            point = int(gridIn.cell[i,j])
             outPoint[point,2] += gridIn.volumn[i]
             outPoint[point,3] += gridIn.volumn[i] * status.Phy[i,0]     #U
             outPoint[point,4] += gridIn.volumn[i] * status.Phy[i,1]     #V
@@ -47,7 +47,7 @@ Zone N={gridIn.num[0]},E={gridIn.num[2]},F=FEPOINT, ET=TRIANGLE
     
     for i in range(gridIn.num[2]):
         for j in range(3):
-            fid.write(str(gridIn.status[i,j] + 1))
+            fid.write(str(gridIn.cell[i,j] + 1))
             fid.write('\t')
         fid.write('\n')
 
