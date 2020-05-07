@@ -17,6 +17,7 @@ class grid:
 
 class farField:
     def __init__(self,pInf,rhoInf,gammaInf,maInf,alphaInf):
+        self.Alpha = alphaInf
         self.c = math.sqrt(gammaInf * pInf / rhoInf)
         self.U = maInf * self.c * math.cos(alphaInf/57.3)
         self.V = maInf * self.c * math.sin(alphaInf/57.3)
